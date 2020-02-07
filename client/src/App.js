@@ -1,24 +1,34 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import "./App.css";
 
 function App() {
+  const [colection, setColection] = React.useState([]);
+  const [value, setValue] = React.useState("");
+  React.useEffect(() => {
+    fetch("http://localhost:5000/")
+      .then(info => info.json())
+      .then(data => setColection(data));
+  }, []);
+  const sendHandler = () => {
+    fetch("http://localhost:5000/", {
+      method: "POST",
+      mode: 'cors',
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({ value })
+    });
+  };
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <div>
+        <input
+          onChange={event => setValue(event.target.value)}
+          type="text"
+          value={value}
+        />
+        <button onClick={sendHandler}>Send</button>
+      </div>
     </div>
   );
 }
