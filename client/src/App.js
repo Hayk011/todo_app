@@ -9,16 +9,15 @@ function App() {
       .then(info => info.json())
       .then(data => setColection(data));
   }, []);
-  const sendHandler = () => {
-    fetch("http://localhost:5000/", {
-      method: "POST",
-      mode: 'cors',
+ function sendHandler() {
+     fetch("http://localhost:5000/", {
+      method: "post",
       headers: {
         "Content-Type": "application/json"
       },
       body: JSON.stringify({ value })
     });
-  };
+  }
   return (
     <div className="App">
       <div>
@@ -27,7 +26,7 @@ function App() {
           type="text"
           value={value}
         />
-        <button onClick={sendHandler}>Send</button>
+        <button onClick = {sendHandler}>Send</button>
       </div>
     </div>
   );

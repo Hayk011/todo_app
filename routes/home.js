@@ -5,7 +5,7 @@ router.get("/", async (req, res) => {
   const todoColection = await Todo.find({});
   return res.json(todoColection);
 });
-router.post("/", async (req, res) => {
-  await  console.log(req.body);
+router.post("/", (req, res) => {
+  console.log(req.body);
 });
 module.exports = router;
